@@ -4,6 +4,7 @@ import { DiscogsService } from '../../services';
 import { Router } from '@angular/router';
 import sortBy from 'lodash/sortBy';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -16,12 +17,16 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     if (this.discogsService.currentUserDetails) {
-      this.discogsService.getCurrentUserCollection(this.discogsService.currentUserDetails.username)
-        .subscribe(usercollection => {
-          usercollection.releases = sortBy(usercollection.releases, release => release.basic_information.title);
-          this.collection = usercollection;
-          console.log(this.collection);
-        });
+      if (!this.discogsService.currentUserCollection) {
+        this.discogsService.getCurrentUserCollection(this.discogsService.currentUserDetails.username)
+          .subscribe(usercollection => {
+            usercollection.releases = sortBy(usercollection.releases, release => release.basic_information.title);
+            this.collection = usercollection;
+            this.discogsService.currentUserCollection = this.collection;
+          });
+      } else {
+        this.collection = this.discogsService.currentUserCollection;
+      }
     } else {
       this.router.navigateByUrl('enter-credentials');
     }

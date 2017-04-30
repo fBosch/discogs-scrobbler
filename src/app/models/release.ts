@@ -110,7 +110,7 @@ interface Extraartist {
   id: number;
 }
 
-interface Tracklist {
+export interface Tracklist {
   duration: string;
   position: string;
   type_: string;

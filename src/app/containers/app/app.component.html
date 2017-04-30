@@ -1,4 +1,8 @@
 <md-toolbar color="primary">
-  <span>Discogs Scrobbler {{ title }}</span>
+  <span routerLink="/dashboard">
+    Discogs Scrobbler {{ title }}
+  </span>
 </md-toolbar>
-<router-outlet></router-outlet>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

@@ -1,3 +1,4 @@
+import { keys } from './../../keys';
 import { Injectable } from '@angular/core';
 import { Response, Jsonp } from '@angular/http';
 
@@ -5,15 +6,16 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
-
-import { DiscogsUser, DiscogsCollectionFolder } from '../models';
+import { DiscogsUser, DiscogsCollectionFolder, DiscogsCollectionFolders } from '../models';
 
 @Injectable()
 export class DiscogsService {
   public currentUserDetails: DiscogsUser;
+  public currentUserCollection: DiscogsCollectionFolders;
   public userLocalStorageKey = 'discogs-scrobbler-discogs-user';
 
-  private apiRoot = method => `https://api.discogs.com/${method}?callback=JSONP_CALLBACK`;
+  private apiRoot = method =>
+    `https://api.discogs.com/${method}?callback=JSONP_CALLBACK&key=${keys.discogsKey}&secret=${keys.disocgsSecret}`;
 
   constructor(private jsonp: Jsonp, ) {
 
@@ -63,6 +65,11 @@ export class DiscogsService {
       .catch(this.handleError);
   }
 
+  getRelease(id: number) {
+    return this.jsonp.request(this.apiRoot(`/releases/${id}`))
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
 
 }

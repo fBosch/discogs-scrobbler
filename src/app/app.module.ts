@@ -12,8 +12,10 @@ import { routes } from './routes';
 
 import {
   MdButtonModule, MdCheckboxModule, MdListModule, MdCardModule,
-  MdToolbarModule, MdMenuModule, MdIconModule
+  MdToolbarModule, MdMenuModule, MdIconModule, MdChipsModule
 } from '@angular/material';
+import { TracksidePipe } from './filters/trackside.pipe';
+import { AlbumStartsWithPipe } from './filters/album-starts-with.pipe';
 
 
 @NgModule({
@@ -23,6 +25,9 @@ import {
     containers.ReleaseComponent,
     containers.DashboardComponent,
     components.CollectionComponent,
+    components.SearchBoxComponent,
+    TracksidePipe,
+    AlbumStartsWithPipe,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,8 @@ import {
     MdCardModule,
     MdToolbarModule,
     MdMenuModule,
-    MdIconModule
+    MdIconModule,
+    MdChipsModule
   ],
   providers: [
     DiscogsService,
