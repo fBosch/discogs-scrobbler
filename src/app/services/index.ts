@@ -1,2 +1,4 @@
-export { LastfmService } from './lastfm.service';
-export { DiscogsService } from './discogs.service';
+import { LastfmService } from './lastfm.service';
+import { DiscogsService } from './discogs.service';
+
+export { LastfmService, DiscogsService };

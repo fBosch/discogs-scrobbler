@@ -11,9 +11,11 @@ import { DiscogsUser, DiscogsCollectionFolder } from '../models';
 @Injectable()
 export class DiscogsService {
   public currentUserDetails: DiscogsUser;
+  public userLocalStorageKey = 'discogs-scrobbler-discogs-user';
 
   private apiRoot = method => `https://api.discogs.com/${method}?callback=JSONP_CALLBACK`;
-  constructor(private jsonp: Jsonp) {
+
+  constructor(private jsonp: Jsonp, ) {
 
   }
 
@@ -48,7 +50,7 @@ export class DiscogsService {
   }
 
   getCollectionItemsByFolderId(username: string, folderId: number) {
-    return this.jsonp.request(this.apiRoot(`/users/${username}/collection/folders/${folderId}/releases`))
+    return this.jsonp.request(this.apiRoot(`/users/${username}/collection/folders/${folderId}/releases`) + '&page=1&per_page=500')
       .map(this.extractData)
       .catch(this.handleError);
   }

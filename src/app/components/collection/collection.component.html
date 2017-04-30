@@ -1,0 +1,8 @@
+<md-list dense *ngIf="collection">
+  <a md-list-item *ngFor="let release of collection.releases " [routerLink]="['/release', release.id]">
+    <img src="{{ release.basic_information.cover_image }}" alt="" md-list-avatar>
+    <p md-line>
+      {{ release.basic_information.title }}
+    </p>
+  </a>
+</md-list>
